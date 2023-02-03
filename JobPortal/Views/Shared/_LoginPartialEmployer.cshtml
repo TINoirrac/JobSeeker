@@ -1,0 +1,39 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<UserProfile> SignInManager
+@inject UserManager<UserProfile> UserManager
+@inject JobPortalWebContext _context
+@{
+
+}
+@if (SignInManager.IsSignedIn(User))
+{
+    var user =await UserManager.GetUserAsync(User);
+    var companyname = _context.Companies.Where(p => p.Id == user.CompanyId).FirstOrDefault()?.CompanyName;
+    <div class="d-flex justify-content-center align-items-center flex-column me-5">
+        <div style="font-size:12px" >Trang Tuyển Dụng</div>
+        <a class="nav-link p-0" asp-controller="Companies" asp-action="Details" asp-route-id="@user.CompanyId" >
+            <div class="font-14">
+                <strong>@companyname</strong>
+            </div>
+        </a>
+    </div>
+    <a class="ant-dropdown-trigger" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div class="nav-item dropdown user">
+            <div class="main-show">
+                <i class="bi bi-person-circle"></i>
+                <span>@UserManager.GetUserName(User)</span>
+                <i class="bi bi-caret-down"></i>
+            </div>
+            <partial name="_ProfileDropdown">
+        </div>
+    </a>
+}
+else
+{    
+    <li class="nav-item">
+        <a class="nav-link text-dark btn-web" id="login" asp-area="Identity" asp-page="/Account/LoginEmployer">Đăng nhập</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark btn-web" id="register" asp-area="Identity" asp-page="/Account/RegisterEmployer">Đăng kí</a>
+    </li>
+}

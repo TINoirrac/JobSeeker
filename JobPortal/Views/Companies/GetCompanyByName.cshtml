@@ -1,0 +1,46 @@
+﻿@model IEnumerable<JobPortal.Models.Company>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="search-bar search-bar-deskop search-bar-company-list bg-light">
+    <div class="wrapper-container">
+        <form asp-action="GetCompanyByName" target="_top" class="row search-form" method="get">
+            <div class="form-item relative col col-md-10">
+                <div class="d-flex search-input">
+                    <input class="search-bar-placeholder" placeholder="Tìm kiếm tên công ty" name="searchString" value/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="wrapper-container company-contain mb-3 mt-40 mt-3">
+    <h6 class="mb-3">@Model.Count() công ty tuyển dụng</h6>
+    <div>
+        <div style="margin:-8px -8px 8px" class="row">
+            @foreach( var item in Model){
+                <div class=" col col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-2">
+                    <div class="company-card">
+                        <div class="company-info">
+                            <div class="company-info-logo">
+                                <div style="position:relative">
+                                    <div style="width:72px;height:72px;margin:auto;overflow:hidden;border-radius:5px;border-width:1px;border-style:solid;border-color:#e8e8e8"
+                                    class="d-flex align-items-center">
+                                        <img style="max-width:100%" src=@Html.DisplayFor(p=> item.CompanyLogoUrl)>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1 flex-shrink-1">
+                                <a asp-action="Details" asp-route-id="@item.Id">
+                                    <h5 class="company-name">
+                                        @Html.DisplayFor(p=>item.CompanyName)
+                                    </h5>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

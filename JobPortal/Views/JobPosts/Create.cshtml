@@ -1,0 +1,92 @@
+﻿@model JobPortal.Models.CreatePostModel
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<UserProfile> UserManager
+
+@{
+    ViewData["Title"] = "Create";
+    var user = await UserManager.GetUserAsync(User);
+    //var list = ViewData["JobTypeId"] as MultiSelectList;
+}
+<div class="wrapper-container mt-3">
+    <div class=" row justify-content-center">
+        <div class=" col-xs-12 col-md-12 col-lg-12">
+            <div class="AccountLayout_account-content__ecbP4">
+                <form asp-action="Create">
+                    <div class="jsx-3272395647 your-account_form-header__17u4l">
+                        <h4>Tạo tin tuyển dụng</h4>
+                        <div class="jsx-3272395647 your-account_btn-submit-desk__2XPYx">
+                            <div class="ant-form-item-control-input-content">
+                                <button id="update-profile-button" type="submit" class="ant-btn ant-btn-primary" style="width: 100%;">Đăng tin</button>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="jsx-3272395647 your-account_form-body__3lgSI">
+                        <h5 class="ant-menu-title-content">Chi tiết đăng tuyển</h5>
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>              
+                        <div class="ant-row ">           
+                            <div class="form-group ant-col-12 pe-3 ps-3 ant-form-item">
+                                <label asp-for="NameJob" class="form-label ant-col ant-form-item-label">Vị trí ứng tuyển</label>
+                                <input asp-for="NameJob" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="ant-row ">           
+                            <div class="form-group ant-col-24 pe-3 ps-3 ant-form-item">
+                                <label asp-for="Company.Location" class="form-label ant-col ant-form-item-label">Địa điểm làm việc</label>
+                                <input asp-for="Company.Location" class="form-control" disabled/>
+                            </div>
+                        </div>
+                        <div class="ant-row ">           
+                            <div class="form-group ant-col-24 pe-3 ps-3 ant-form-item">
+                                <label asp-for="JobTypeIds" class="form-label ant-col ant-form-item-label">Ngành nghề</label>
+                                <select id="jobtypeids" asp-for="JobTypeIds" multiple="multiple" class="w-100" asp-items="ViewBag.JobTypeId"></select>
+                            </div>
+                        </div>
+                        <div class="ant-row ">           
+                            <div class="form-group ant-col-12 pe-3 ps-3 ant-form-item">
+                                <label asp-for="EmploymentType" class="form-label ant-col ant-form-item-label">Hình thức làm việc</label>
+                                <select asp-for="EmploymentType" class="form-control" asp-items="ViewBag.Employment"></select>
+                            </div>
+                            <div class="form-group ant-col-12 pe-3 ps-3 ant-form-item">
+                                <label asp-for="Level" class="form-label ant-col ant-form-item-label">Cấp bậc</label>
+                                <select asp-for="Level" class="form-control" asp-items="ViewBag.Level"></select>
+                            </div>
+                        </div>
+                        <div class="ant-row ">           
+                            <div class="form-group ant-col-24 pe-3 ps-3 ant-form-item">
+                                <label asp-for="JobDescription" class="form-label ant-col ant-form-item-label">Mô tả công việc  </label>
+                                <textarea asp-for="JobDescription" class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <h5>Thông tin liên lạc</h5>
+                        <div class="ant-row ">           
+                            <div class="form-group ant-col-12 pe-3 ps-3 ant-form-item">
+                                <label asp-for="@user.PhoneNumber" class="form-label ant-col ant-form-item-label">Số điện thoại công ty/người phụ trách</label>
+                                <input asp-for="@user.PhoneNumber" class="form-control" disabled />
+                            </div>
+                            <div class="form-group ant-col-12 pe-3 ps-3 ant-form-item">
+                                <label asp-for="@user.Email" class="form-label ant-col ant-form-item-label">Gmail công ty/người phụ trách</label>
+                                <input asp-for="@user.Email" class="form-control " disabled />                
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @await Html.PartialAsync("_Summernote", new {height = 200, selector = "#JobDescription"})
+
+    <script src="~/lib/multiple-select/dist/multiple-select.min.js"></script>
+    <link rel="stylesheet" href="~/lib/multiple-select/dist/multiple-select.min.css" />
+
+    <script>
+          $('#jobtypeids').multipleSelect({
+                selectAll: false,
+                keepOpen: false,
+                isOpen: false
+            });
+    </script>
+}

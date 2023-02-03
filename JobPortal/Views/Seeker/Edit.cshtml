@@ -1,0 +1,75 @@
+﻿@model JobPortal.Models.Seeker
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="wrapper-container pt-5">
+    <div class="row justify-content-center">
+        <div class="col col-12 col-md-12 col-lg-8">
+            <div class="job-detail-body">
+                    <form asp-action="Edit" enctype="multipart/form-data">
+                        <div class="ant-tabs-content-holder">
+                            <div class="d-flex flex-column ">
+                                <div class="d-flex justify-content-between align-items-center heading mb-4">
+                                    <h5>Thông tin cá nhân</h5>
+                                    <div class="d-flex">
+                                        <button type="submit" class="fw-bold fs-6 ant-btn ant-btn-primary">Lưu thay đổi</button>
+                                    </div>
+                                </div>
+                                <div class="jsx-3272395647 your-account_form-body__3lgSI">
+                                        <div asp-validation-summary="All" class="text-danger"></div>
+                                        <div class="ant-row ">           
+                                            <div class="form-group ant-col-12 pe-3 ps-3 ant-form-item">
+                                                <label asp-for="UserProfile.FullName" class="form-label ant-col ant-form-item-label">Họ và tên</label>
+                                                <input asp-for="UserProfile.FullName" class="form-control" required/>
+                                            </div>         
+                                            <div class="form-group ant-col-12 pe-3 ps-3 ant-form-item">
+                                                <label asp-for="JobTitle" class="form-label ant-col ant-form-item-label">Chức danh hiện tại</label>
+                                                <input asp-for="JobTitle" class="form-control" required/>
+                                            </div>
+                                        </div>
+                                        <div class="ant-row ">           
+                                            <div class="form-group ant-col-12 pe-3 ps-3 ant-form-item">
+                                                <label asp-for="Level" class="form-label ant-col ant-form-item-label">Cấp bậc</label>
+                                                <select asp-for="Level" class="form-control" asp-items="ViewBag.Level"></select>
+                                            </div>        
+                                            <div class="form-group ant-col-12 pe-3 ps-3 ant-form-item">
+                                                <label asp-for="YOfExp" class="form-label ant-col ant-form-item-label">Số năm kinh nghiệm</label>
+                                                <select asp-for="YOfExp" asp-items="ViewBag.YOfExp" class="form-control"></select>
+                                            </div>
+                                        </div>
+                                        <div class="ant-row ">       
+                                            <div class="form-group ant-col-12 pe-3 ps-3 ant-form-item">
+                                                <label asp-for="UserProfile.Email" class="form-label ant-col ant-form-item-label">Địa chỉ Email</label>
+                                                <input asp-for="UserProfile.Email" class="form-control" disabled />
+                                            </div>
+                                            <div class="form-group ant-col-6 pe-3 ps-3 ant-form-item">
+                                                <label asp-for="UserProfile.PhoneNumber" class="form-label ant-col ant-form-item-label">Số điện thoại</label>
+                                                <input asp-for="UserProfile.PhoneNumber" class="form-control" disabled />
+                                            </div>
+                                            <div class="form-group ant-col-6 pe-3 ps-3 ant-form-item">
+                                                <label asp-for="City" class="form-label ant-col ant-form-item-label">Tỉnh/thành</label>
+                                                <select asp-for="City" asp-items="ViewBag.City" class="form-control" required></select>
+                                            </div>
+                                        </div>
+
+                                        <div class="ant-row">
+                                            <div class="form-group ant-col-24 pe-3 ps-3 ant-form-item">
+                                                <label asp-for="Introduction" class="form-label ant-col ant-form-item-label">Giới thiệu</label>
+                                                <textarea asp-for="Introduction" class="form-control "></textarea>                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @await Html.PartialAsync("_Summernote", new {height = 200, selector = "#Introduction"})
+}

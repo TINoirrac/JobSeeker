@@ -1,0 +1,14 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@inject Microsoft.AspNetCore.Authorization.IAuthorizationService authorizationService
+@{
+    var result = await authorizationService.AuthorizeAsync(this.User, "Employer");
+    if(result.Succeeded)
+    {
+        Layout = "/Views/Shared/_LayoutEmployer.cshtml";
+    }
+    else
+    {
+        Layout = "/Views/Shared/_Layout.cshtml";
+    }
+    
+}

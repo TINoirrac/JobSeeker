@@ -1,0 +1,37 @@
+﻿@model JobPortal.Models.JobTypeActivity
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_LayoutEmployer.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>JobTypeActivity</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="JobTypeId" class="control-label"></label>
+                <select id="jobtype_dropdown" asp-for="JobTypeId" class ="form-control multiselect" multiple  asp-items="ViewBag.JobTypeId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="JobPostId" class="control-label"></label>
+                <select asp-for="JobPostId" class ="form-control" asp-items="ViewBag.JobPostId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

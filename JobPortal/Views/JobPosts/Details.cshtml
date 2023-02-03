@@ -1,0 +1,229 @@
+﻿@model JobPortal.Models.JobPost
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<UserProfile> UserManager
+@inject SignInManager<UserProfile> SignInManager
+@using Microsoft.AspNetCore.Authorization
+@inject Microsoft.AspNetCore.Authorization.IAuthorizationService authorizationService
+@{
+    ViewData["Title"] = "Details";
+    var user = await UserManager.GetUserAsync(User);
+    string? userjobpost = null;
+    if (SignInManager.IsSignedIn(User))
+    {
+        userjobpost = Model.JobPostActivities.Where(j => j.UserProfileId == user.Id).FirstOrDefault()?.UserProfileId;
+    }
+    var seeker = await authorizationService.AuthorizeAsync(this.User, "Seeker");
+    var skills = Model.JobTypeActivities;
+}
+
+<div class="job-detail-container ">
+    <div class="job-detail-page">
+        <div class="wrapper-container pt-3">
+            <div class="row">
+                <div class=" col col-12 col-md-12 col-lg-8">
+                    <div class="job-detail-body">
+                        <div class="job-detail-body__header mb-3">
+                            <a target="_blank" href=@Html.DisplayFor(modelItem => Model.Company.CompanyWebsiteUrl)>
+                                <div style="position:relative">
+                                    <div style="width:92px;height:92px;margin:auto;overflow:hidden;border-radius:5px;border-width:1px;border-style:solid;border-color:#e8e8e8"
+                                    class="d-flex align-items-center">
+                                    <img src=@Html.DisplayFor(modelItem => Model.Company.CompanyLogoUrl) style="max-width:100%" class="jsx-2287091654">
+                                </div>
+                                </div>
+                            </a>
+                            <div >
+                                <h5 class="text-20-medium job-title mb-0">
+                                    @Html.DisplayFor(modelItem => Model.NameJob)
+                                </h5>
+                                <a class="title-company-name" target="_blank" id="JOB_CARD_BUTTON_SIMILAR-32545" asp-controller="Companies" asp-action="Details" asp-route-id="@Model.CompanyId">
+                                    @Html.DisplayFor(p => Model.Company.CompanyName)
+                                </a>
+                            </div>
+                        </div>
+                        <div class="job-detail-body__basic-in mb-3">
+                            <div class="job-detail-body__basic-in-left">
+                                <div class="text-12-bold pt-1 ">
+                                    <span>
+                                        <i class="bi bi-hdd-stack"></i>
+                                    </span>
+                                </div>
+                                <div class="text-16-gray-9 job-detail-address">
+                                    <div class="location">
+                                        <span>
+                                            @Html.DisplayFor(p=> Model.Level)
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="text-12-bold pt-1">
+                                    <span>
+                                        <i class="bi bi-clock"></i>
+                                    </span>
+                                </div>
+                                <div class="text-16-gray-9 job-detail-address">
+                                    <div class="location">
+                                        <span>
+                                            @Html.DisplayFor(p=> Model.EmploymentType)
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="text-12-bold pt-1">
+                                    <span>
+                                        <i class="bi bi-geo-alt"></i>
+                                    </span>
+                                </div>
+                                <div class="text-16-gray-9 job-detail-address">
+                                    <div class="location">
+                                        <span>
+                                            @Html.DisplayFor(p=> Model.Company.City)
+                                        </span>
+                                    </div>
+                                </div>
+                                    <div class="text-12-bold pt-1">
+                                        <span>
+                                            <i class="bi bi-calendar3"></i>
+                                        </span>
+                                    </div>
+                                <div class="text-16-gray-9">
+                                    <span>
+                                        Đăng tuyển ngày @Model.CreatedDate.Day/@Model.CreatedDate.Month/@Model.CreatedDate.Year
+                                    </span>
+                                </div>
+                            </div>
+                            @if (seeker.Succeeded)
+                            {
+                               <div class="job-detail-body__basic-in-right">
+                                <div class="login-apply-button">
+                                    @if (userjobpost!=null)
+                                    {
+                                        <form asp-controller="JobPostActivities" asp-action="CancelApplyJob" asp-route-id="@Model.Id">
+                                            <button type="submit" class="btn btn-primary">
+                                                Hủy ứng tuyển
+                                            </button>
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        <form asp-controller="JobPostActivities" asp-action="ApplyJob" asp-route-id="@Model.Id">
+                                            <button type="submit" class="btn btn-primary" value="Apply">
+                                                Ứng tuyển
+                                            </button>
+                                        </form>  
+                                    }
+                                   
+                                </div>
+                            </div> 
+                            }
+                        </div>
+                        <div>
+                            <div class="border-bottom mb-3"></div>
+                            <h4 class="text-20-medium mb-1">
+                                Địa điểm làm việc
+                            </h4>                                
+                            <ul>
+                                <li>
+                                    @Html.DisplayFor(p=>p.Company.Location)
+                                </li>
+                            </ul>
+                            <h4 class="text-20-medium mb-1">
+                                Mô tả công việc
+                            </h4>
+                            <div class="text-16-gray">
+                                @Html.Raw(Model.JobDescription)
+                            </div>
+                            <h4 class="text-20-medium mb-1">
+                                Ngành nghề
+                            </h4>
+                            <div class="skill-area d-block">
+                                <div class="skill-list d-flex">
+                                @foreach(var skill in Model.JobTypeActivities)
+                                     {
+                                        <div class="skill-item">
+                                            <div class="skill-text">
+                                                <a  asp-action="GetAllJobPosts" asp-route-JobTypeId="@skill.JobType.Id">
+                                                      @skill.JobType.JobType1
+                                                </a>
+                                            </div>
+                                       </div>
+                                        }
+                                </div>
+                            </div>
+                            <h4 class="text-20-medium mb-1">
+                                Thông tin liên lạc
+                            </h4>
+                            <div class="ant-row ">           
+                                <div class="form-group ant-col-12 pe-3 ps-3 ant-form-item">
+                                    <label asp-for="@Model.Company.UserProfile.PhoneNumber" class="form-label ant-col ant-form-item-label">Số điện thoại công ty/người phụ trách</label>
+                                    <input asp-for="@Model.Company.UserProfile.PhoneNumber" class="form-control" disabled />
+                                </div>
+                                <div class="form-group ant-col-12 pe-3 ps-3 ant-form-item">
+                                    <label asp-for="@user.Email" class="form-label ant-col ant-form-item-label">Gmail công ty/người phụ trách</label>
+                                    <input asp-for="@user.Email" class="form-control " disabled />                
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @if (!seeker.Succeeded)
+                {
+                    <div style="padding:12px" class="col col-12 col-lg-4">
+                        <div class="mb-3">
+                            <div class="company-wrapper">
+                                <div class="company-title-right">
+                                    <h4 class="title">
+                                        Danh sách ứng viên (@Model.JobPostActivities.Count())
+                                    </h4>
+                                </div>
+                                <div class=" col-12 col-md-12">
+                                    <div class="view-list">
+                                        <div class="position-relative" >
+                                            @foreach (var item in Model.JobPostActivities.ToList())
+                                            {
+                                                <div class="row">
+                                                    <div class="col col-12 d-block">
+                                                        <div class="job-list-card" role="button">
+                                                            <div class="card-header">
+                                                                <div class="d-flex">
+                                                                    <div class="company-info">
+                                                                        <div class="company-info-logo">
+                                                                            <div style="position:relative">
+                                                                                <div style="width:64px;height:64px;margin:auto;overflow:hidden;border-radius:5px;border-width:1px;border-style:solid;border-color:#e8e8e8"
+                                                                                        class="jsx-2287091654 desktop-logo-company logo-company d-flex align-items-center">
+                                                                                    <img src=@Html.DisplayFor(modelItem => item.UserProfile.UserImageUrl) style="max-width:100%" class="jsx-2287091654">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="title-card">
+                                                                        <div class="flex-header">
+                                                                            <h5 class="position">
+                                                                                <a id="JOB_CARD_BUTTON_SIMILAR-32545" asp-controller="Seeker" asp-action="Details" asp-route-id="@item?.UserProfile.SeekerId">
+                                                                                    @Html.DisplayFor(modelItem =>item.UserProfile.FullName)
+                                                                                </a>
+                                                                            </h5>
+                                                                        </div>
+                                                                        @Html.DisplayFor(p => item.UserProfile.Seeker.JobTitle)
+                                                                        <div class="d-flex align-items-center justify-content-space-between">
+                                                                            <div class="job-locations">
+                                                                                <div class="location">
+                                                                                    <span>@Html.DisplayFor(p=>item.UserProfile.Seeker.City)</span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

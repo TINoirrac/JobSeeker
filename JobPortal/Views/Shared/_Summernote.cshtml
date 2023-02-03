@@ -1,0 +1,25 @@
+﻿@model dynamic
+@{
+    int height = Model.height ?? 200;
+    string selector = Model.selector;
+}
+  
+<script src="/lib/summernote/summernote-lite.js"></script>
+<link href="/lib/summernote/summernote-lite.css" rel="stylesheet">
+
+<script>
+    $(document).ready(function() {
+        $('@selector').summernote({
+            height: @height,
+            toolbar: [
+                // [groupName, [list of button]]
+                  //['style', ['style']],
+                  ['font', ['bold','italic' , 'underline', 'clear']],
+                  ['color', ['color']],
+                  ['para', ['ul', 'ol', 'paragraph']],
+                  ['insert', ['link']],
+                  ['view', ['help']]
+                ]
+        }).summernote('code');
+    });
+</script>

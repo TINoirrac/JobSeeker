@@ -1,0 +1,157 @@
+﻿@model JobPortal.Models.Company
+@{
+    ViewData["Title"] = "Details";
+}
+<div class="wrapper-container pt-3">
+    <div style="margin-left:-12px;margin-right:-12px;margin-top:-12px;margin-bottom:12px" class="row justify-content-center">
+        <div style="padding:12px" class="col col-12 col-lg-12">
+            <div class="company-wrapper">
+                <div class="company-info d-flex align-items-start">
+                    <div class="logo">  
+                        <div style="position:relative">
+                            <div class="d-flex align-items-center company-pic">
+                                <img src="@Html.DisplayFor(p=>Model.CompanyLogoUrl)" style="max-width:100%" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="company-detail w-100">
+                        <h3 class="company-name">
+                            @Html.DisplayFor(p=>Model.CompanyName)
+                        </h3>
+                        <div class="d-flex">
+                            <div class="left-info flex-grow-1 flex-shrink-1">
+                                <div class="list mb-2 d-flex align-items-center">
+@*                                    <div class="company-label">
+                                        Quy mô
+                                    </div>
+                                    <div class="company-content">
+                                        <span></span>
+                                    </div>*@
+                                </div>
+                                <div class="mb-2 d-flex align-items-center">
+                                    <div class="company-label">
+                                        Tỉnh/thành
+                                    </div>
+                                    <div class="company-content">
+                                        <span>
+                                            @Html.DisplayFor(p=>Model.City)
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="mb-2 d-flex align-items-center">
+                                    <div class="company-label">
+                                        Website
+                                    </div>
+                                    <div class="company-content">
+                                        <a href="@Html.DisplayFor(p=>Model.CompanyWebsiteUrl)" target="_blank">
+                                            @Html.DisplayFor(p=>Model.CompanyWebsiteUrl)
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="right-info">
+                                <div class="mb-2 d-flex align-items-center">
+                                    <div class="company-label">
+                                        SĐT Liên hệ
+                                    </div>
+                                    <div class="company-content">
+                                        <span>
+                                            @ViewBag.CompanyPhone
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="mb-2 d-flex align-items-center">
+                                    <div class="company-label">
+                                        Email
+                                    </div>
+                                    <div class="company-content">
+                                        <span>
+                                            @ViewBag.CompanyEmail
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="margin-left:-12px;margin-right:-12px;margin-top:-12px;margin-bottom:12px" class="row justify-content-center">
+        <div style="padding:12px" class="col col-12 col-lg-8">
+            <div class="company-wrapper mb-4">
+                <div class="list-job">
+                    <h4 class="title">
+                        Công việc
+                        <span class="">@Model.JobPosts.Count()</span>
+                    </h4>
+                    @foreach(var item in Model.JobPosts)
+                    {
+                        <div class="row" style="margin: -16px -16px 16px;">
+                                    <div class="company-job-card">
+                                        <div class="card-header">
+                                            <div class="d-flex">
+                                                <div class="title-card">
+                                                    <div class="d-flex">
+                                                        <h5 class="position">
+                                                            <a target="_blank" asp-controller="JobPosts" asp-action="Details" asp-route-id="@item.Id">
+                                                                @Html.DisplayFor(p=>item.NameJob)
+                                                            </a>
+                                                        </h5>
+                                                    </div>
+                                                    <div class="d-flex align-items-center justify-content-between">
+                                                        <div>
+                                                            <span class="me-2">@item.EmploymentType</span>
+                                                            <span class="me-2">@item.Level</span>
+                                                        </div>
+                                                        <span class="time">@item.CreatedDate.Day/@item.CreatedDate.Month/@item.CreatedDate.Year</span>
+                                                    </div>
+                                                    <div class="skill-area d-block">
+                                                        <div class="skill-list d-flex">
+                                                        @foreach(var skill in item.JobTypeActivities)
+                                                        {
+                                                            <div class="skill-item">
+                                                                <div class="skill-text">
+                                                                    <a asp-controller="JobPosts"  asp-action="GetAllJobPosts" asp-route-JobTypeId="@skill.JobTypeId">
+                                                                        @skill.JobType.JobType1
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="company-wrapper">
+                <div class="company-intro">
+                    <h4>Giới thiệu @Model.CompanyName</h4>
+                    <div>@Html.Raw(Model.ProfileDescription)</div>
+                </div>
+            </div>
+        </div>
+        <div style="padding:12px" class="col col-12 col-lg-4">
+            <div class="mb-3">
+                <div class="company-wrapper">
+                    <div class="company-title-right">
+                        <h4 class="title">
+                            Trụ sở chính
+                        </h4>
+                    </div>
+                    <div class="company-address">
+                        <span>@Model.Location</span>
+                        <a href="https://www.google.com/maps/search/@Model.Location" target="_blank">
+                            Xem bản đồ
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

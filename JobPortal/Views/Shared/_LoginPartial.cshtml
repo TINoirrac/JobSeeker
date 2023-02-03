@@ -1,0 +1,25 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<UserProfile> SignInManager
+@inject UserManager<UserProfile> UserManager
+@if (SignInManager.IsSignedIn(User))
+{
+    <a class="ant-dropdown-trigger" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div class="nav-item dropdown user">
+            <div class="main-show">
+                <i class="bi bi-person-circle"></i>
+                <span>@UserManager.GetUserName(User)</span>
+                <i class="bi bi-caret-down"></i>
+            </div>
+            <partial name="_ProfileDropdown">
+        </div>
+    </a>
+}
+else
+{    
+    <li class="nav-item">
+        <a class="nav-link text-dark btn-web" id="login" asp-area="Identity" asp-page="/Account/LoginSeeker">Đăng nhập</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark btn-web" id="register" asp-area="Identity" asp-page="/Account/RegisterSeeker">Đăng kí</a>
+    </li>
+}

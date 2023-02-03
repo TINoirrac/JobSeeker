@@ -1,0 +1,22 @@
+﻿@page
+@model PersonalDataModel
+@{
+    ViewData["Title"] = "Xóa tài khoản";
+    ViewData["ActivePage"] = ManageNavPages.PersonalData;
+}
+<div class="jsx-3272395647 your-account_form-header__17u4l">
+        <h3>Xóa tài khoản</h3>
+    </div>
+    <hr />
+<div class="d-flex p-4">
+    <div class="ant-col">
+    <p>Tài khoản của bạn chứa dữ liệu cá nhân mà bạn đã cung cấp cho chúng tôi</p>
+     <p><strong>Việc xóa dữ liệu này sẽ xóa vĩnh viễn tài khoản của bạn và điều này không thể được khôi phục.</strong></p>
+     <br />
+    <a id="delete" asp-page="DeletePersonalData" class="btn btn-danger ant-col-12">Delete</a>
+</div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

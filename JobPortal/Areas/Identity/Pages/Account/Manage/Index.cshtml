@@ -1,0 +1,76 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Profile";
+    ViewData["ActivePage"] = ManageNavPages.Index;
+}
+
+<form method="post" enctype="multipart/form-data" class="ant-form ant-form-vertical">
+    <div class="jsx-3272395647 your-account_form-header__17u4l">
+        <div class="jsx-3272395647 your-account_user-name-verify__3SIK6">
+            <div class="ant-row ant-form-item your-account_avatar-field__9_89E">
+                <div class="ant-col ant-form-item-control">
+                    <div class="ant-form-item-control-input">
+                        <div class="ant-form-item-control-input-content profile-pic rounded-circle">
+                            <img src="@Model.Input.ImageUrl" id="avatar"/>
+                            <input asp-for="Input.UploadAvatar" class="form-control d-none" />
+                            <label asp-for="Input.UploadAvatar" id="uploadBtn"><i class="bi bi-camera-fill"></i></label>
+                            <span asp-validation-for="Input.UploadAvatar" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jsx-3272395647 your-account_user-name-field__y5A4U">
+            <div class="ant-row ant-form-item  your-account_user-name-field-item__2tdpK">
+                <div class="ant-col ant-form-item-control">
+                    <div class="ant-form-item-control-input">
+                        <div class="ant-form-item-control-input-content">
+                            <div class="your-account_user-label-name__fsgYH">
+                                @Html.Display("Input.FullName")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jsx-3272395647 your-account_btn-submit-desk__2XPYx">
+            <div class="ant-form-item-control-input-content">
+                <button id="update-profile-button" type="submit" class="ant-btn ant-btn-primary" style="width: 100%;">Lưu thay đổi</button>
+            </div>
+        </div>
+    </div>
+<hr />
+<partial name="_StatusMessage" for="StatusMessage" />
+    <div class="jsx-3272395647 your-account_form-body__3lgSI">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="ant-row ">           
+            <div class="form-group ant-col-12 pe-3 ps-3 ant-form-item">
+                <label asp-for="Username" class="form-label ant-col ant-form-item-label"></label>
+                <input asp-for="Username" class="form-control" disabled />
+            </div>
+            <div class="form-group ant-col-12 pe-3 ps-3 ant-form-item">
+                <label asp-for="Input.Email" class="form-label ant-col ant-form-item-label"></label>
+                <input asp-for="Input.Email" class="form-control " disabled />                
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="ant-row">
+            <div class="form-group ant-col-12 pe-3 ps-3 ant-form-item">
+                <label asp-for="Input.FullName" class="form-label ant-col ant-form-item-label"></label>
+                <input asp-for="Input.FullName" class="form-control" />
+                <span asp-validation-for="Input.FullName" class="text-danger"></span>
+            </div>
+            <div class="form-group ant-col-12 pe-3 ps-3 ant-form-item">
+                <label asp-for="Input.PhoneNumber" class="form-label ant-col ant-form-item-label"></label>
+                <input asp-for="Input.PhoneNumber" class="form-control" />                
+                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

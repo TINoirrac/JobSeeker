@@ -1,0 +1,130 @@
+﻿@model JobPortal.Models.SearchJobPost
+
+@{
+    ViewData["Title"] = "Tìm việc";
+}
+<div class="search-bar search-bar-deskop search-bar-company-list bg-light">
+    <div class="wrapper-container">
+        <form asp-action="GetAllJobPosts" target="_top" class="row search-form" method="get">
+            <div class="form-item relative col col-md-10">
+                <div class="d-flex search-input">
+                    <input type="text" class="search-bar-placeholder" placeholder="Tìm kiếm theo chức danh" asp-for="SearchString" value="@ViewBag.searchString"/>
+                </div>
+            </div>
+            <div class="form-item relative col col-md-2">
+                <input type="submit" value="Tìm kiếm" class="btn btn-primary" />
+            </div>
+            <div class="d-flex mt-2">
+            <div class="form-item form-item-select relative col col-md-3">
+                <div class="dropdown">
+                    <span>Tỉnh/Thành</span>
+                    <select asp-for="City" asp-items="ViewBag.City" class="btn btn-light dropdown-togle border col-10" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <option value="" >All</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-item form-item-select relative col col-md-3">
+                <div class="dropdown">
+                    <span>Ngành nghề</span>
+                    <select asp-for="JobTypeId" asp-items="ViewBag.JobTypeId" class="btn btn-light dropdown-togle border col-10" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <option value="" >All</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-item form-item-select relative col-md-3">
+                <div class="dropdown">
+                    <span>Hình thức làm việc</span>
+                    <select asp-for="EmployType" asp-items="ViewBag.EmployType" class="btn btn-light dropdown-togle border col-10" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <option value="" >All</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-item form-item-select relative col col-md-3">
+                <div class="dropdown">
+                    <span>Cấp bậc</span>
+                    <select asp-for="Level" asp-items="ViewBag.Level" class="btn btn-light dropdown-togle border col-10" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <option value="" >All</option>
+                    </select>
+                </div>
+            </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="wrapper-container mt-3">
+    <div class=" row justify-content-center">
+        <div class=" col-xs-12 col-md-12 col-lg-12">
+            <div class="job-count-search border-bottom">
+                <h6>
+                    <strong>@Model.Posts.Count()</strong> việc làm
+                </h6>
+            </div>
+            <div class="view-list">
+                <div>
+                    <div class="position-relative" >
+                        @foreach (var item in Model.Posts) {  
+                            <div class="row">
+                                    <div class="col col-12 d-block">
+                                        <div class="job-list-card" role="button" >
+                                            <div class="card-header">
+                                                <div class="d-flex">
+                                                    <div class="company-info">
+                                                        <div class="company-info-logo">
+                                                            <a class="avatar"  id="JOB_CARD_BUTTON_VIEW_CLIENT_LOGO-32545" href=@Html.DisplayFor(modelItem => item.Company.CompanyWebsiteUrl) target="_blank">
+                                                                <div style="position:relative">
+                                                                    <div style="width:64px;height:64px;margin:auto;overflow:hidden;border-radius:5px;border-width:1px;border-style:solid;border-color:#e8e8e8"
+                                                                    class="jsx-2287091654 desktop-logo-company logo-company d-flex align-items-center">
+                                                                        <img src=@Html.DisplayFor(modelItem => item.Company.CompanyLogoUrl) style="max-width:100%" class="jsx-2287091654">
+                                                                    </div>
+                                                                </div>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="title-card">
+                                                        <div class="flex-header">
+                                                            <h5 class="position">
+                                                                <a  id="JOB_CARD_BUTTON_SIMILAR-32545" asp-action="Details" asp-route-id="@item.Id">
+                                                                @Html.DisplayFor(modelItem =>item.NameJob)
+                                                                </a>
+                                                            </h5>
+                                                        </div>
+                                                        <a class="title-company-name"  id="JOB_CARD_BUTTON_SIMILAR-32545" asp-controller="Companies" asp-action="Details" asp-route-id="@item?.CompanyId">
+                                                        @Html.DisplayFor(p => item.Company.CompanyName)
+                                                        </a>
+                                                        <div class="d-flex align-items-center justify-content-between">
+                                                            <div class="job-locations">
+                                                                <div class="location">
+                                                                    <span>@Html.DisplayFor(p=>item.Company.City)</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="time">
+                                                                @item.CreatedDate.Day/@item.CreatedDate.Month/@item.CreatedDate.Year
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="skill-area d-block">
+                                                    <div class="skill-list d-flex">
+                                                    @foreach(var skill in item.JobTypeActivities)
+                                                    {
+                                                        <div class="skill-item">
+                                                            <div class="skill-text">
+                                                                <a  asp-action="GetAllJobPosts" asp-route-JobTypeId="@skill.JobTypeId">
+                                                                    @skill.JobType.JobType1
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                    </div>
+                </div>
+            </div>
+        </div>
+     </div>
+</div>

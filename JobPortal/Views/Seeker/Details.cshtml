@@ -1,0 +1,89 @@
+﻿@model JobPortal.Models.Seeker
+@using Microsoft.AspNetCore.Authorization
+@inject Microsoft.AspNetCore.Authorization.IAuthorizationService authorizationService
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var seeker = await authorizationService.AuthorizeAsync(this.User, "Seeker");
+}
+
+<div class="job-detail-container">
+    <div class="job-detail-page">
+        <div class="wrapper-container pt-5">
+            <div class="row">
+                <div class="col col-12 col-md-12 col-lg-8">
+                    <div class="job-detail-body">
+                        <div class="ant-tabs-content-holder">
+                            <div class="d-flex flex-column ">
+                                <div class="d-flex justify-content-between align-items-center heading mb-4">
+                                    <h4>Thông tin cá nhân</h4>
+                                    @if (seeker.Succeeded)
+                                    {
+                                    <a asp-action="Edit" asp-route-id="@Model.Id" class="fw-bold fs-6">
+                                        <i class="bi bi-pencil-square"></i>
+                                        Cập nhật
+                                    </a>   
+                                    }
+
+                                </div>
+                                <div class="text-center">
+                                    <div class="d-flex justify-content-center">
+                                        <div class="profile-pic rounded-circle">
+                                            <img src=@Model.UserProfile.UserImageUrl id="avatar" />
+                                        </div>
+                                    </div>
+                                    <h5 class="fw-bold mb-1 mt-2">@Model.UserProfile.FullName</h5>
+                                    <div class="mb-1 d-flex align-items-center justify-content-center">
+                                        <span class="fs-6">@Model.JobTitle</span>
+                                        <span><i class="bi bi-dot"></i></span>
+                                        <span class="fs-6">@Model.Level</span>
+                                        <span><i class="bi bi-dot"></i></span>
+                                        <span class="fs-6">@Model.YOfExp kinh nghiệm</span>
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-center flex-wrap mb-1">
+                                        <span class="fs-6">@Model.UserProfile.Email</span>
+                                        <span><i class="bi bi-dot"></i></span>
+                                        <span class="fs-6">@Model.UserProfile.PhoneNumber</span>
+                                        <span><i class="bi bi-dot"></i></span>
+                                        <span class="fs-6">@Model.City</span>
+                                    </div>
+                                </div>
+                                <div class=" heading mb-4">
+                                    <h5>Giới thiệu bản thân</h5>
+                                    <div class="text-16-gray">
+                                        @Html.Raw(Model.Introduction)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-12 col-md-12 col-lg-4">
+                    <div class="job-detail-body">
+                        <div class="ant-tabs-content-holder">
+                            <div class="d-flex flex-column">
+                                <h4>Xem CV</h4>
+                                <div class="text-center">
+                                    <embed src="@Model.CvUrl" class="col-12 preview-cv mb-3" sc/>
+                                    @if (seeker.Succeeded)
+                                    {
+                                        <form asp-action="UploadCv" asp-route-id="@Model.Id" enctype="multipart/form-data" class="d-flex">
+                                            <input asp-for="UploadCv" class="form-control d-none" />
+                                            <label asp-for="UploadCv" class="btn btn-outline-primary col-2" >
+                                                <i class="bi bi-upload"></i>
+                                            </label>
+                                            <span asp-validation-for="UploadCv" class="text-danger"></span>
+                                            <button type="submit" class="btn btn-primary col-10">Lưu SV mới</button>
+                                        </form>
+                                    }
+
+                                    <a href="@Model.CvUrl" target="_blank" class="btn btn-info col-12">Xem CV</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

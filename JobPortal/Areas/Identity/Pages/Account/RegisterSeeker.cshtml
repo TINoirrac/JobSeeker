@@ -1,0 +1,181 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "RegisterSeeker";
+}
+
+<div class="col col-12 justify-content-center d-flex mb-3">
+    <img src="~/media/Group 63.png" style="max-width:250px;height:auto" />
+</div>
+<div class="row d-flex justify-content-center ">
+    <div class="col col-4">
+        <section class="login-form">
+            <form id="login-form" class="ant-form ant-form-vertical" method="post" asp-route-returnUrl="/RegisterSeeker">
+                <div class="ant-row ant-row-space-between ant-row-middle" style="margin-left:-8px;margin-right:-8px;margin-top:-12px;margin-bottom:12px">
+                    <div class="border-bottom d-flex flex-wrap w-100">
+                        <div id="login-page" class="col col-6" style="padding-left:8px;padding-right:8px;padding-top:12px;padding-bottom:12px">
+                            <a asp-page="./LoginSeeker" asp-route-returnUrl="@Model.ReturnUrl">
+                                <button type="button" class="jsx-1401555188 jsx-143433104">
+                                    Đăng nhập
+                                </button>
+                            </a>
+                        </div>
+                        <div id="login-page" class="col col-6 active" style="padding-left:8px;padding-right:8px;padding-top:12px;padding-bottom:12px">                           
+                            <button type="button" class="jsx-1401555188 jsx-143433104 btn-active">
+                                Đăng kí
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="ant-row ant-form-item">
+                    <div class="ant-col ant-form-item-control">
+                        <div class="ant-form-item-control-input">
+                            <div class="ant-form-item-control-input-content">
+                                <div class="form-floating">
+                                    <input asp-for="Input.UserName" class="form-control"  aria-required="true" />
+                                    <label asp-for="Input.UserName"></label>
+                                    <span asp-validation-for="Input.UserName" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ant-row ant-form-item">
+                    <div class="ant-col ant-form-item-control">
+                        <div class="ant-form-item-control-input">
+                            <div class="ant-form-item-control-input-content">
+                                <div class="form-floating">
+                                    <input asp-for="Input.FullName" class="form-control"  aria-required="true" />
+                                    <label asp-for="Input.FullName"></label>
+                                    <span asp-validation-for="Input.FullName" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ant-row ant-form-item">
+                    <div class="ant-col ant-form-item-control">
+                        <div class="ant-form-item-control-input">
+                            <div class="ant-form-item-control-input-content">
+                                <div class="form-floating">
+                                    <input asp-for="Input.Email" class="form-control" aria-required="true" />
+                                    <label asp-for="Input.Email"></label>
+                                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ant-row ant-form-item">
+                    <div class="ant-col ant-form-item-control">
+                        <div class="ant-form-item-control-input">
+                            <div class="ant-form-item-control-input-content">
+                                <div class="form-floating">
+                                    <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" />
+                                    <label asp-for="Input.Password"></label>
+                                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ant-row ant-form-item">
+                    <div class="ant-col ant-form-item-control">
+                        <div class="ant-form-item-control-input">
+                            <div class="ant-form-item-control-input-content">
+                                <div class="form-floating">
+                                    <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />
+                                    <label asp-for="Input.ConfirmPassword"></label>
+                                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Đăng kí</button>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
+
+
+@*<h1>@ViewData["Title"]</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <h2>Create a new account.</h2>
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-floating">
+                <input asp-for="Input.UserName" class="form-control"  aria-required="true" />
+                <label asp-for="Input.UserName"></label>
+                <span asp-validation-for="Input.UserName" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <input asp-for="Input.FirstName" class="form-control"  aria-required="true" />
+                <label asp-for="Input.FirstName"></label>
+                <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <input asp-for="Input.LastName" class="form-control"  aria-required="true" />
+                <label asp-for="Input.LastName"></label>
+                <span asp-validation-for="Input.LastName" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <input asp-for="Input.Email" class="form-control" aria-required="true" />
+                <label asp-for="Input.Email"></label>
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" />
+                <label asp-for="Input.Password"></label>
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />
+                <label asp-for="Input.ConfirmPassword"></label>
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+        </form>
+    </div>
+    <div class="col-md-6 col-md-offset-2">
+        <section>
+            <h3>Use another service to register.</h3>
+            <hr />
+            @{
+                if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                {
+                    <div>
+                        <p>
+                            There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article
+                            about setting up this ASP.NET application to support logging in via external services</a>.
+                        </p>
+                    </div>
+                }
+                else
+                {
+                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                        <div>
+                            <p>
+                                @foreach (var provider in Model.ExternalLogins)
+                                {
+                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                }
+                            </p>
+                        </div>
+                    </form>
+                }
+            }
+        </section>
+    </div>
+</div>*@
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

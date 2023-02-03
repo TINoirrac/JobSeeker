@@ -1,0 +1,434 @@
+CREATE TABLE [dbo].[Company](
+   [id] [nvarchar](450) NOT NULL,
+   [company_name] [nvarchar](100) NOT NULL,
+   [profile_description] [varchar](1000) NULL,
+   [establishment_date] [date] NULL,
+   [company_website_url] [varchar](500) NULL,
+   [company_logo_url] [varchar](500) NULL,
+ CONSTRAINT [PK_Company] PRIMARY KEY CLUSTERED 
+(
+   [id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[EducationDetail]    Script Date: 6/8/2022 3:03:59 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[EducationDetail](
+   [user_account_id] [nvarchar](450) NOT NULL,
+   [certificate_degree_name] [varchar](50) NOT NULL,
+   [major] [varchar](50) NOT NULL,
+   [Institute_university_name] [varchar](50) NOT NULL,
+ CONSTRAINT [education_detail_pk] PRIMARY KEY CLUSTERED 
+(
+   [user_account_id] ASC,
+   [certificate_degree_name] ASC,
+   [major] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[ExperienceDetail]    Script Date: 6/8/2022 3:03:59 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ExperienceDetail](
+   [user_account_id] [nvarchar](450) NOT NULL,
+   [start_date] [date] NOT NULL,
+   [end_date] [date] NOT NULL,
+   [job_title] [nvarchar](50) NOT NULL,
+   [company_name] [nvarchar](100) NOT NULL,
+   [description] [nvarchar](4000) NOT NULL,
+ CONSTRAINT [experience_detail_pk] PRIMARY KEY CLUSTERED 
+(
+   [user_account_id] ASC,
+   [start_date] ASC,
+   [end_date] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[JobPost]    Script Date: 6/8/2022 3:03:59 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[JobPost](
+   [id] [nvarchar](450) NOT NULL,
+   [job_type_id] [nvarchar](450) NOT NULL,
+   [company_id] [nvarchar](450) NOT NULL,
+   [created_date] [date] NOT NULL,
+   [job_description] [nvarchar](500) NOT NULL,
+   [job_location] [nvarchar](100) NOT NULL,
+   [name_job] [nvarchar](500) NOT NULL,
+ CONSTRAINT [PK_JobPost] PRIMARY KEY CLUSTERED 
+(
+   [id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[JobPostActivity]    Script Date: 6/8/2022 3:03:59 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[JobPostActivity](
+   [seeker_profile_id] [nvarchar](450) NOT NULL,
+   [job_post_id] [nvarchar](450) NOT NULL,
+   [apply_date] [date] NOT NULL,
+ CONSTRAINT [job_post_activity_pk] PRIMARY KEY CLUSTERED 
+(
+   [seeker_profile_id] ASC,
+   [job_post_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[JobType]    Script Date: 6/8/2022 3:03:59 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[JobType](
+   [id] [nvarchar](450) NOT NULL,
+   [job_type] [nvarchar](20) NOT NULL,
+ CONSTRAINT [PK_JobType] PRIMARY KEY CLUSTERED 
+(
+   [id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[JobTypeActivity]    Script Date: 6/8/2022 3:03:59 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[JobTypeActivity](
+   [job_type_id] [nvarchar](450) NOT NULL,
+   [job_post_id] [nvarchar](450) NOT NULL,
+ CONSTRAINT [job_type_activity_pk] PRIMARY KEY CLUSTERED 
+(
+   [job_type_id] ASC,
+   [job_post_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[RoleClaims]    Script Date: 6/8/2022 3:03:59 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[RoleClaims](
+   [Id] [int] IDENTITY(1,1) NOT NULL,
+   [RoleId] [nvarchar](450) NOT NULL,
+   [ClaimType] [nvarchar](max) NULL,
+   [ClaimValue] [nvarchar](max) NULL,
+ CONSTRAINT [PK_RoleClaims] PRIMARY KEY CLUSTERED 
+(
+   [Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Roles]    Script Date: 6/8/2022 3:03:59 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Roles](
+   [Id] [nvarchar](450) NOT NULL,
+   [Name] [nvarchar](256) NULL,
+   [NormalizedName] [nvarchar](256) NULL,
+   [ConcurrencyStamp] [nvarchar](max) NULL,
+ CONSTRAINT [PK_Roles] PRIMARY KEY CLUSTERED 
+(
+   [Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[SeekerProfile]    Script Date: 6/8/2022 3:03:59 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[SeekerProfile](
+   [id] [nvarchar](450) NOT NULL,
+   [date_of_birth] [date] NULL,
+   [gender] [bit] NULL,
+   [user_image_url] [varchar](500) NULL,
+   [UserName] [nvarchar](256) NULL,
+   [NormalizedUserName] [nvarchar](256) NULL,
+   [Email] [nvarchar](256) NULL,
+   [NormalizedEmail] [nvarchar](256) NULL,
+   [EmailConfirmed] [bit] NOT NULL,
+   [PasswordHash] [nvarchar](max) NULL,
+   [SecurityStamp] [nvarchar](max) NULL,
+   [ConcurrencyStamp] [nvarchar](max) NULL,
+   [PhoneNumber] [nvarchar](max) NULL,
+   [PhoneNumberConfirmed] [bit] NOT NULL,
+   [TwoFactorEnabled] [bit] NOT NULL,
+   [LockoutEnd] [datetimeoffset](7) NULL,
+   [LockoutEnabled] [bit] NOT NULL,
+   [AccessFailedCount] [int] NOT NULL,
+   [full_name] [nvarchar](50) NOT NULL,
+   [company_id] [nvarchar](450) NULL,
+ CONSTRAINT [PK_SeekerProfile] PRIMARY KEY CLUSTERED 
+(
+   [id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Session]    Script Date: 6/8/2022 3:03:59 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Session](
+   [Id] [nvarchar](449) NOT NULL,
+   [Value] [varbinary](max) NOT NULL,
+   [ExpiresAtTime] [datetimeoffset](7) NOT NULL,
+   [SlidingExpirationInSeconds] [bigint] NULL,
+   [AbsoluteExpiration] [datetimeoffset](7) NULL,
+PRIMARY KEY CLUSTERED 
+(
+   [Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[UserClaims]    Script Date: 6/8/2022 3:03:59 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[UserClaims](
+   [Id] [int] IDENTITY(1,1) NOT NULL,
+   [UserId] [nvarchar](450) NOT NULL,
+   [ClaimType] [nvarchar](max) NULL,
+   [ClaimValue] [nvarchar](max) NULL,
+ CONSTRAINT [PK_UserClaims] PRIMARY KEY CLUSTERED 
+(
+   [Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[UserLogins]    Script Date: 6/8/2022 3:03:59 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[UserLogins](
+   [LoginProvider] [nvarchar](128) NOT NULL,
+   [ProviderKey] [nvarchar](128) NOT NULL,
+   [ProviderDisplayName] [nvarchar](max) NULL,
+   [UserId] [nvarchar](450) NOT NULL
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[UserRoles]    Script Date: 6/8/2022 3:03:59 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[UserRoles](
+   [UserId] [nvarchar](450) NOT NULL,
+   [RoleId] [nvarchar](450) NOT NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[UserTokens]    Script Date: 6/8/2022 3:03:59 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[UserTokens](
+   [UserId] [nvarchar](450) NOT NULL,
+   [LoginProvider] [nvarchar](128) NOT NULL,
+   [Name] [nvarchar](128) NOT NULL,
+   [Value] [nvarchar](max) NULL
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [IX_JobPost_company_id]    Script Date: 6/8/2022 3:03:59 PM ******/
+CREATE NONCLUSTERED INDEX [IX_JobPost_company_id] ON [dbo].[JobPost]
+(
+   [company_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [IX_JobPost_job_type_id]    Script Date: 6/8/2022 3:03:59 PM ******/
+CREATE NONCLUSTERED INDEX [IX_JobPost_job_type_id] ON [dbo].[JobPost]
+(
+   [job_type_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [IX_JobPostActivity_job_post_id]    Script Date: 6/8/2022 3:03:59 PM ******/
+CREATE NONCLUSTERED INDEX [IX_JobPostActivity_job_post_id] ON [dbo].[JobPostActivity]
+(
+   [job_post_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [IX_JobTypeActivity_job_post_id]    Script Date: 6/8/2022 3:03:59 PM ******/
+CREATE NONCLUSTERED INDEX [IX_JobTypeActivity_job_post_id] ON [dbo].[JobTypeActivity]
+(
+   [job_post_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [IX_RoleClaims_RoleId]    Script Date: 6/8/2022 3:03:59 PM ******/
+CREATE NONCLUSTERED INDEX [IX_RoleClaims_RoleId] ON [dbo].[RoleClaims]
+(
+   [RoleId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [RoleNameIndex]    Script Date: 6/8/2022 3:03:59 PM ******/
+CREATE UNIQUE NONCLUSTERED INDEX [RoleNameIndex] ON [dbo].[Roles]
+(
+   [NormalizedName] ASC
+)
+WHERE ([NormalizedName] IS NOT NULL)
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [EmailIndex]    Script Date: 6/8/2022 3:03:59 PM ******/
+CREATE NONCLUSTERED INDEX [EmailIndex] ON [dbo].[SeekerProfile]
+(
+   [NormalizedEmail] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [UserNameIndex]    Script Date: 6/8/2022 3:03:59 PM ******/
+CREATE UNIQUE NONCLUSTERED INDEX [UserNameIndex] ON [dbo].[SeekerProfile]
+(
+   [NormalizedUserName] ASC
+)
+WHERE ([NormalizedUserName] IS NOT NULL)
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [Index_ExpiresAtTime]    Script Date: 6/8/2022 3:03:59 PM ******/
+CREATE NONCLUSTERED INDEX [Index_ExpiresAtTime] ON [dbo].[Session]
+(
+   [ExpiresAtTime] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [IX_UserClaims_UserId]    Script Date: 6/8/2022 3:03:59 PM ******/
+CREATE NONCLUSTERED INDEX [IX_UserClaims_UserId] ON [dbo].[UserClaims]
+(
+   [UserId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [IX_UserLogins_UserId]    Script Date: 6/8/2022 3:03:59 PM ******/
+CREATE NONCLUSTERED INDEX [IX_UserLogins_UserId] ON [dbo].[UserLogins]
+(
+   [UserId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [IX_UserRoles_RoleId]    Script Date: 6/8/2022 3:03:59 PM ******/
+CREATE NONCLUSTERED INDEX [IX_UserRoles_RoleId] ON [dbo].[UserRoles]
+(
+   [RoleId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[SeekerProfile] ADD  DEFAULT (N'') FOR [full_name]
+GO
+ALTER TABLE [dbo].[SeekerProfile] ADD  DEFAULT (N'') FOR [company_id]
+GO
+ALTER TABLE [dbo].[EducationDetail]  WITH CHECK ADD  CONSTRAINT [educ_dtl_seeker_profile] FOREIGN KEY([user_account_id])
+REFERENCES [dbo].[SeekerProfile] ([id])
+GO
+ALTER TABLE [dbo].[EducationDetail] CHECK CONSTRAINT [educ_dtl_seeker_profile]
+GO
+ALTER TABLE [dbo].[ExperienceDetail]  WITH CHECK ADD  CONSTRAINT [exp_dtl_seeker_profile] FOREIGN KEY([user_account_id])
+REFERENCES [dbo].[SeekerProfile] ([id])
+GO
+ALTER TABLE [dbo].[ExperienceDetail] CHECK CONSTRAINT [exp_dtl_seeker_profile]
+GO
+ALTER TABLE [dbo].[JobPost]  WITH CHECK ADD  CONSTRAINT [JobPost_Company_id_fk] FOREIGN KEY([company_id])
+REFERENCES [dbo].[Company] ([id])
+GO
+ALTER TABLE [dbo].[JobPost] CHECK CONSTRAINT [JobPost_Company_id_fk]
+GO
+ALTER TABLE [dbo].[JobPost]  WITH CHECK ADD  CONSTRAINT [JobPost_JobType_id_fk] FOREIGN KEY([job_type_id])
+REFERENCES [dbo].[JobType] ([id])
+GO
+ALTER TABLE [dbo].[JobPost] CHECK CONSTRAINT [JobPost_JobType_id_fk]
+GO
+ALTER TABLE [dbo].[JobPostActivity]  WITH CHECK ADD  CONSTRAINT [job_post_activity_job_post] FOREIGN KEY([job_post_id])
+REFERENCES [dbo].[JobPost] ([id])
+GO
+ALTER TABLE [dbo].[JobPostActivity] CHECK CONSTRAINT [job_post_activity_job_post]
+GO
+ALTER TABLE [dbo].[JobPostActivity]  WITH CHECK ADD  CONSTRAINT [job_post_activity_seeker_profile] FOREIGN KEY([seeker_profile_id])
+REFERENCES [dbo].[SeekerProfile] ([id])
+GO
+ALTER TABLE [dbo].[JobPostActivity] CHECK CONSTRAINT [job_post_activity_seeker_profile]
+GO
+ALTER TABLE [dbo].[JobTypeActivity]  WITH CHECK ADD  CONSTRAINT [job_type_activity_job_post] FOREIGN KEY([job_post_id])
+REFERENCES [dbo].[JobPost] ([id])
+GO
+ALTER TABLE [dbo].[JobTypeActivity] CHECK CONSTRAINT [job_type_activity_job_post]
+GO
+ALTER TABLE [dbo].[JobTypeActivity]  WITH CHECK ADD  CONSTRAINT [job_type_activity_job_type] FOREIGN KEY([job_type_id])
+REFERENCES [dbo].[JobType] ([id])
+GO
+ALTER TABLE [dbo].[JobTypeActivity] CHECK CONSTRAINT [job_type_activity_job_type]
+GO
+ALTER TABLE [dbo].[RoleClaims]  WITH CHECK ADD  CONSTRAINT [FK_RoleClaims_Roles_RoleId] FOREIGN KEY([RoleId])
+REFERENCES [dbo].[Roles] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[RoleClaims] CHECK CONSTRAINT [FK_RoleClaims_Roles_RoleId]
+GO
+ALTER TABLE [dbo].[SeekerProfile]  WITH CHECK ADD  CONSTRAINT [FK_SeekerProfile_Company_company_id] FOREIGN KEY([company_id])
+REFERENCES [dbo].[Company] ([id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[SeekerProfile] CHECK CONSTRAINT [FK_SeekerProfile_Company_company_id]
+GO
+ALTER TABLE [dbo].[UserClaims]  WITH CHECK ADD  CONSTRAINT [FK_UserClaims_SeekerProfile_UserId] FOREIGN KEY([UserId])
+REFERENCES [dbo].[SeekerProfile] ([id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[UserClaims] CHECK CONSTRAINT [FK_UserClaims_SeekerProfile_UserId]
+GO
+ALTER TABLE [dbo].[UserLogins]  WITH CHECK ADD  CONSTRAINT [FK_UserLogins_SeekerProfile_UserId] FOREIGN KEY([UserId])
+REFERENCES [dbo].[SeekerProfile] ([id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[UserLogins] CHECK CONSTRAINT [FK_UserLogins_SeekerProfile_UserId]
+GO
+ALTER TABLE [dbo].[UserRoles]  WITH CHECK ADD  CONSTRAINT [FK_UserRoles_Roles_RoleId] FOREIGN KEY([RoleId])
+REFERENCES [dbo].[Roles] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[UserRoles] CHECK CONSTRAINT [FK_UserRoles_Roles_RoleId]
+GO
+ALTER TABLE [dbo].[UserRoles]  WITH CHECK ADD  CONSTRAINT [FK_UserRoles_SeekerProfile_UserId] FOREIGN KEY([UserId])
+REFERENCES [dbo].[SeekerProfile] ([id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[UserRoles] CHECK CONSTRAINT [FK_UserRoles_SeekerProfile_UserId]
+GO
+ALTER TABLE [dbo].[UserTokens]  WITH CHECK ADD  CONSTRAINT [FK_UserTokens_SeekerProfile_UserId] FOREIGN KEY([UserId])
+REFERENCES [dbo].[SeekerProfile] ([id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[UserTokens] CHECK CONSTRAINT [FK_UserTokens_SeekerProfile_UserId]
+GO
+USE [master]
+GO
+ALTER DATABASE [JobPortalWeb] SET  READ_WRITE 
+GO

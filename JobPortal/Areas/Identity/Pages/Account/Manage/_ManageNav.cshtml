@@ -1,0 +1,21 @@
+﻿@inject SignInManager<UserProfile> SignInManager
+@inject UserManager<UserProfile> UserManager
+@inject Microsoft.AspNetCore.Authorization.IAuthorizationService authorizationService
+@using Microsoft.AspNetCore.Authorization
+@{
+    var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
+    var employer = await authorizationService.AuthorizeAsync(this.User, "Employer");
+    var seeker = await authorizationService.AuthorizeAsync(this.User, "Seeker");
+    var user =await UserManager.GetUserAsync(User);
+}
+<ul class="nav nav-pills flex-column">
+    <li class="nav-item"><a class="AccountLayout_account-menubar__item__3kDRz @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">Tài khoản của bạn</a></li>
+    <li class="nav-item"><a class="AccountLayout_account-menubar__item__3kDRz @ManageNavPages.EmailNavClass(ViewContext)" id="email" asp-page="./Email">Thay đổi Email</a></li>
+    <li class="nav-item"><a class="AccountLayout_account-menubar__item__3kDRz @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Thay đổi mật khẩu</a></li>
+    @*    @if (hasExternalLogins)
+    {
+        <li id="external-logins" class="nav-item"><a id="external-login" class="AccountLayout_account-menubar__item__3kDRz false @ManageNavPages.ExternalLoginsNavClass(ViewContext)" asp-page="./ExternalLogins">External logins</a></li>
+    }*@
+    @*<li class="nav-item"><a class="AccountLayout_account-menubar__item__3kDRz false @ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext)" id="two-factor" asp-page="./TwoFactorAuthentication">Two-factor authentication</a></li>*@
+    <li class="nav-item"><a class="AccountLayout_account-menubar__item__3kDRz @ManageNavPages.PersonalDataNavClass(ViewContext)" id="personal-data" asp-page="./DeletePersonalData">Xóa tài khoản</a></li>
+</ul>

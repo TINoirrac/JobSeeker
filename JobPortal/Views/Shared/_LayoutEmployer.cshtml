@@ -1,0 +1,78 @@
+﻿
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<UserProfile> UserManager
+@inject SignInManager<UserProfile> SignInManager
+@{
+    ViewData["Title"] = "Employer";
+    var user =await UserManager.GetUserAsync(User);
+}
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - JobPortal</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/JobPortal.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/mainLayout.css"   asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/antd/antd.min.css"   asp-append-version="true" />
+</head>
+<body>
+    <header>
+         <nav class="border-bottom navbar navbar-expand-lg navbar-light bg-light fixed-top pt-0 pb-0">
+        <div class="container-fluid">
+          <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+              <img src="~/media/Group 37.png" style="width:51px;height:auto" />
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                @if(SignInManager.IsSignedIn(User)){
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="JobPosts" asp-action="GetJobPostByCompany">Tin tuyển dụng
+                        </a>
+                        <div class="text-line"></div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="UserProfiles" asp-action="GetAllSeekerApplied">Ứng viên
+                        </a>
+                        <div class="text-line"></div>
+                    </li>
+                } 
+            </ul>
+            <span class="navbar-text">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <partial name="_LoginPartialEmployer" />
+                    @if(!SignInManager.IsSignedIn(User))
+                    {
+                        <li class="nav-item">
+                            <a id="actor" class="nav-link" asp-controller="Home" asp-action="Index" >
+                                <div id="actorname" class="font-14 blue fw-bold" >NGƯỜI TÌM VIỆC</div>
+                                <div id="actorinfo" class="font-12">Tìm kiếm việc làm </div>
+                            </a>
+                            <div class="text-line"></div>
+                        </li>
+                    }
+                </ul>
+            </span>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <div class="container-fluid ps-0 pe-0 main-content" >
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    <script>
+    </script>
+</body>
+</html>

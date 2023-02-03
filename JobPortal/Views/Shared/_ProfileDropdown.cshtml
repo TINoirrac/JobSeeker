@@ -1,0 +1,42 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@using Microsoft.AspNetCore.Authorization
+@inject Microsoft.AspNetCore.Authorization.IAuthorizationService authorizationService
+@inject SignInManager<UserProfile> SignInManager
+@inject UserManager<UserProfile> UserManager
+@{
+    var admin = await authorizationService.AuthorizeAsync(this.User, "Admin");
+    var employer = await authorizationService.AuthorizeAsync(this.User, "Employer");
+    var userid=await UserManager.GetUserAsync(User);
+}
+<div class="dropdown-menu dropdown-menu-right" aria-labelledby="managedropdownmenu">
+    @if (admin.Succeeded)
+    {
+            <a class="dropdown-item" asp-page="/Role/Index">Quản lý role</a>
+			<a class="dropdown-item" asp-controller="UserProfiles" asp-action="Index">Quản lí tài khoản</a>
+			<a class="dropdown-item" asp-controller="Companies" asp-action="Index">Quản lí công ty</a>
+			<a class="dropdown-item" asp-controller="JobPosts" asp-action="Index">Quản lí bài đăng</a>
+			<a class="dropdown-item" asp-controller="JobTypes" asp-action="Index">Quản lí ngành/nghề</a>
+            <a class="dropdown-item" asp-controller="Cities" asp-action="Index">Quản lí tỉnh/thành</a>
+            <a class="dropdown-item" asp-controller="Levels" asp-action="Index">Quản lí cấp bậc</a>
+    }
+    <a id="manage" class="dropdown-item nav-link btn btn-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+            @*<a id="manage" class="dropdown-item nav-link btn btn-link text-dark" asp-controller="UserProfiles" asp-action="Edit" asp-route-id=@userid title="Manage">*@
+            <i class="bi bi-person-lines-fill"></i>
+            <span>Tài khoản của bạn</span>
+            </a>
+    @if(employer.Succeeded)
+    {
+            <a id="manage" class="dropdown-item nav-link btn btn-link text-dark" asp-controller="Companies" asp-action="Edit" asp-route-id=@userid.CompanyId title="Manage">
+            <i class="bi bi-building"></i>
+            <span>Tài khoản công ty</span>
+            </a>
+    }
+            <form id="logoutForm" class="dropdown-item mb-0 p-0" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button id="logout" type="submit" class="nav-link btn btn-link text-dark">
+                    <i class="bi bi-box-arrow-in-right"></i>
+                    <span>Đăng xuất</span>
+                    </button>
+            </form>
+
+</div>

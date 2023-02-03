@@ -1,0 +1,54 @@
+﻿@page
+@model EmailModel
+@{
+    ViewData["Title"] = "Manage Email";
+    ViewData["ActivePage"] = ManageNavPages.Email;
+}
+<form id="email-form" method="post">
+    <div class="jsx-3272395647 your-account_form-header__17u4l">
+        <h3>Thay đổi Email</h3>
+        <div class="jsx-3272395647 your-account_btn-submit-desk__2XPYx">
+            <div class="ant-form-item-control-input-content">
+                <button id="update-profile-button" type="submit" asp-page-handler="ChangeEmail" class="ant-btn ant-btn-primary" style="width: 100%;">Lưu thay đổi</button>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <partial name="_StatusMessage" for="StatusMessage" />
+    <div class="ant-col">
+
+            <div asp-validation-summary="All" class="text-danger"></div>
+            @if (Model.IsEmailConfirmed)
+            {
+                <div class="form-group ant-col-12 pe-3 ps-3 ant-form-item input-group">
+                <label asp-for="Email" class="form-label ant-col ant-form-item-label"></label>
+                <div class="input-group">
+                    <input asp-for="Email" class="form-control" disabled />
+                    <div class="input-group-append">
+                        <span class="h-100 input-group-text text-success font-weight-bold">✓</span>
+                    </div>
+                </div>
+                </div>
+            }
+            else
+            {
+                <div class="form-group ant-col-12 pe-3 ps-3 ant-form-item input-group">
+                <label asp-for="Email" class="form-label ant-col ant-form-item-label"></label>
+                <div class="input-group">
+                    <input asp-for="Email" class="form-control" disabled />
+                </div>
+                <button id="email-verification" type="submit" asp-page-handler="SendVerificationEmail" class="btn btn-primary">Gửi Email xác nhận</button>
+                </div>
+            }
+            <div class="form-group ant-col-12 pe-3 ps-3 ant-form-item">
+                <label asp-for="Input.NewEmail" class="form-label ant-col ant-form-item-label"></label>
+                <input asp-for="Input.NewEmail" class="form-control" />
+                <span asp-validation-for="Input.NewEmail" class="text-danger"></span>
+            </div>
+    </div>
+</form>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

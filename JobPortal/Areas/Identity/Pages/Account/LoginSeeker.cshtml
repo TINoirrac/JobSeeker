@@ -1,0 +1,78 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+}
+
+<div class="col col-12 justify-content-center d-flex mb-3">
+    <img src="~/media/Group 63.png" style="max-width:250px;height:auto" />
+</div>
+<div class="row d-flex justify-content-center ">
+    <div class="col col-4">
+        <section class="login-form">
+            <form id="login-form" class="ant-form ant-form-vertical" method="post">
+                <div class="ant-row ant-row-space-between ant-row-middle" style="margin-left:-8px;margin-right:-8px;margin-top:-12px;margin-bottom:12px">
+                    <div class="border-bottom d-flex flex-wrap w-100">
+                        <div id="login-page" class="col col-6 active" style="padding-left:8px;padding-right:8px;padding-top:12px;padding-bottom:12px">
+                            <button type="button" class="jsx-1401555188 jsx-143433104 btn-active">
+                                Đăng nhập
+                            </button>
+                        </div>
+                        <div id="login-page" class="col col-6" style="padding-left:8px;padding-right:8px;padding-top:12px;padding-bottom:12px">
+                            <a asp-page="./RegisterSeeker" asp-route-returnUrl="@Model.ReturnUrl">
+                                <button type="button" class="jsx-1401555188 jsx-143433104">
+                                    Đăng kí
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="ant-row ant-form-item">
+                    <div class="ant-col ant-form-item-control">
+                        <div class="ant-form-item-control-input">
+                            <div class="ant-form-item-control-input-content">
+                                <div class="form-floating">
+                                    <input asp-for="Input.UserNameOrEmail" class="form-control" autocomplete="username" aria-required="true" />
+                                    <label asp-for="Input.UserNameOrEmail" class="form-label"></label>
+                                    <span asp-validation-for="Input.UserNameOrEmail" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ant-row ant-form-item">
+                    <div class="ant-col ant-form-item-control">
+                        <div class="ant-form-item-control-input">
+                            <div class="ant-form-item-control-input-content">
+                                <div class="form-floating">
+                                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" />
+                                    <label asp-for="Input.Password" class="form-label"></label>
+                                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a id="forgot-password" class="jsx-1401555188 jsx-143433104 link-forgot-pw" asp-page="./ForgotPassword">Quên mật khẩu ?</a>
+                <div>
+                    <div class="checkbox">
+                        <label asp-for="Input.RememberMe" class="form-label">
+                            <input class="form-check-input" asp-for="Input.RememberMe" />
+                            @Html.DisplayNameFor(m => m.Input.RememberMe)
+                        </label>
+                    </div>
+                </div>
+                <div>
+                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Đăng nhập</button>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

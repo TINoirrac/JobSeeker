@@ -1,0 +1,74 @@
+﻿@model IEnumerable<JobPortal.Models.JobPostActivity>
+
+@{
+    ViewData["Title"] = "GetAllSeekerApplied";
+}
+
+<div class="tab-wrapper">
+    <div class="d-flex align-content-center justify-content-between myjob-container">
+        <div class="ant-tabs ant-tabs-top">
+            <div role="tablist" class="ant-tabs-nav">
+                <div class="ant-tabs-nav-wrap">
+                    <div class="ant-tabs-nav-list" style="transform: translate(0px, 0px);">
+                        <div class="ant-tabs-tab ant-tabs-tab-active">
+                            <div role="tab" aria-selected="true" class="ant-tabs-tab-btn" tabindex="0" id="rc-tabs-1-tab-1" aria-controls="rc-tabs-1-panel-1">
+                                Tất cả (@Model.Count())
+                            </div> 
+                        </div>
+                        <div class="ant-tabs-ink-bar ant-tabs-ink-bar-animated" style="left: 0px; width: 115px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="wrapper-container mt-3">
+    <div class=" row justify-content-center">
+        <div class=" col-12 col-md-12">
+            <div class="view-list">
+                    <div class="position-relative" >
+                        @foreach (var item in Model) 
+                        {  
+                            <div class="row">
+                                    <div class="col col-12 d-block">
+                                        <div class="job-list-card" role="button">
+                                            <div class="card-header">
+                                                <div class="d-flex">
+                                                    <div class="company-info">
+                                                        <div class="company-info-logo">
+                                                                <div style="position:relative">
+                                                                    <div style="width:64px;height:64px;margin:auto;overflow:hidden;border-radius:5px;border-width:1px;border-style:solid;border-color:#e8e8e8"
+                                                                    class="jsx-2287091654 desktop-logo-company logo-company d-flex align-items-center">
+                                                                        <img src=@Html.DisplayFor(modelItem => item.UserProfile.UserImageUrl) style="max-width:100%" class="jsx-2287091654">
+                                                                    </div>
+                                                                </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="title-card">
+                                                        <div class="flex-header">
+                                                            <h5 class="position">
+                                                                <a id="JOB_CARD_BUTTON_SIMILAR-32545" asp-controller="Seeker" asp-action="Details" asp-route-id="@item?.UserProfile.SeekerId">
+                                                                @Html.DisplayFor(modelItem =>item.UserProfile.FullName)
+                                                                </a>
+                                                            </h5>
+                                                        </div>
+                                                            @Html.DisplayFor(p => item.UserProfile.Seeker.JobTitle)
+                                                        <div class="d-flex align-items-center justify-content-space-between">
+                                                            <div class="job-locations">
+                                                                <div class="location">
+                                                                    <span>@Html.DisplayFor(p=>item.UserProfile.Seeker.City)</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                    </div>
+            </div>
+        </div>
+     </div>
+</div>

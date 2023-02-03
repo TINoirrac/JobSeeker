@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="JobPortal.Models.City">
+    <Position X="2.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>Models\City.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobPortal.Models.Company">
+    <Position X="7.75" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>CBACQAAAAAAAAAAIgAIAAAACAAQAAAQAAAAAAAgAAAA=</HashCode>
+      <FileName>Models\Company.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="JobPosts" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="JobPortal.Models.CreatePostModel">
+    <Position X="5" Y="7" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\CreatePostModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobPortal.Models.JobPost">
+    <Position X="9.25" Y="5.25" Width="2" />
+    <AssociationLine Name="JobTypeActivities" Type="JobPortal.Models.JobTypeActivity">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.119" Y="1.543" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAoAQAAQAAAAAEAAAAAAAAABAgAABABAAAA=</HashCode>
+      <FileName>Models\JobPost.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="JobPostActivities" />
+      <Property Name="JobTypeActivities" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="JobPortal.Models.JobPostActivity">
+    <Position X="5" Y="4.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>gAAAEAAAAAACAAAABAAAAAAAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\JobPostActivity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobPortal.Models.JobType">
+    <Position X="12.5" Y="5.5" Width="1.5" />
+    <AssociationLine Name="JobTypeActivities" Type="JobPortal.Models.JobTypeActivity">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-2.272" Y="2.074" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Models\JobType.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="JobTypeActivities" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="JobPortal.Models.JobTypeActivity">
+    <Position X="11.25" Y="0.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>iAAAEAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\JobTypeActivity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobPortal.Models.Level">
+    <Position X="2.25" Y="3.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Level.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobPortal.Models.Seeker">
+    <Position X="2.25" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAIAAAAAAAACAQAAAIBAAAAAAAMAAA=</HashCode>
+      <FileName>Models\Seeker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobPortal.Models.UserProfile">
+    <Position X="4.75" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAoAAICAAAAAAAAAAAEQAAAAgAAABAAAQAA=</HashCode>
+      <FileName>Models\UserProfile.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Seeker" />
+      <Property Name="Company" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="JobPostActivities" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

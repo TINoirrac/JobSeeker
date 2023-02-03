@@ -1,0 +1,103 @@
+﻿@model JobPortal.Models.Company
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<UserProfile> UserManager
+
+@{
+    ViewData["Title"] = "Edit";
+    var user = await UserManager.GetUserAsync(User);
+}
+
+<div class="wrapper-container mt-3">
+    <div class=" row justify-content-center">
+        <div class=" col-xs-12 col-md-12 col-lg-12">
+            <div class="AccountLayout_account-content__ecbP4">
+                <form asp-action="Edit" enctype="multipart/form-data">
+                    <div class="jsx-3272395647 your-account_form-header__17u4l">
+                        <div class="jsx-3272395647 your-account_user-name-verify__3SIK6">
+                            <div class="ant-row ant-form-item your-account_avatar-field__9_89E">
+                                <div class="ant-col ant-form-item-control">
+                                    <div class="ant-form-item-control-input">
+                                        <div class="ant-form-item-control-input-content d-flex align-items-center company-pic">
+                                            <img src="@Model.CompanyLogoUrl" style="max-width:100%"/>
+                                            <input asp-for="UploadLogo" class="form-control d-none" />
+                                            <label asp-for="UploadLogo" id="uploadBtn" ><i class="bi bi-camera-fill"></i></label>
+                                            <span asp-validation-for="UploadLogo" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="jsx-3272395647 your-account_user-name-field__y5A4U">
+                            <div class="ant-row ant-form-item  your-account_user-name-field-item__2tdpK">
+                                <div class="ant-col ant-form-item-control">
+                                    <div class="ant-form-item-control-input">
+                                        <div class="ant-form-item-control-input-content">
+                                            <div class="your-account_user-label-name__fsgYH">
+                                                @Html.Display("CompanyName")
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="jsx-3272395647 your-account_btn-submit-desk__2XPYx">
+                            <div class="ant-form-item-control-input-content">
+                                <button id="update-profile-button" type="submit" class="ant-btn ant-btn-primary" style="width: 100%;">Lưu thay đổi</button>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="jsx-3272395647 your-account_form-body__3lgSI">
+                        <h5 class="ant-menu-title-content">Thông tin công ty</h5>
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" />
+                        <div class="ant-row ">           
+                            <div class="form-group ant-col-12 pe-3 ps-3 ant-form-item">
+                                <label asp-for="CompanyName" class="form-label ant-col ant-form-item-label">Tên công ty</label>
+                                <input asp-for="CompanyName" class="form-control" />
+                            </div>
+                            <div class="form-group ant-col-12 pe-3 ps-3 ant-form-item">
+                                <label asp-for="City" class="form-label ant-col ant-form-item-label">Tỉnh/Thành</label>
+                                <select asp-items="ViewBag.City" asp-for="City" class="form-control"></select>              
+                                <span asp-validation-for="City" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="ant-row ">           
+                            <div class="form-group ant-col-24 pe-3 ps-3 ant-form-item">
+                                <label asp-for="Location" class="form-label ant-col ant-form-item-label">Địa chỉ trụ sở chính</label>
+                                <input asp-for="Location" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="ant-row ">           
+                            <div class="form-group ant-col-24 pe-3 ps-3 ant-form-item">
+                                <label asp-for="CompanyWebsiteUrl" class="form-label ant-col ant-form-item-label">Website</label>
+                                <input asp-for="CompanyWebsiteUrl" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="ant-row ">           
+                            <div class="form-group ant-col-24 pe-3 ps-3 ant-form-item">
+                                <label asp-for="ProfileDescription" class="form-label ant-col ant-form-item-label">Giới thiệu về công ty</label>
+                                <textarea asp-for="ProfileDescription" class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <h5>Thông tin liên lạc</h5>
+                        <div class="ant-row ">           
+                            <div class="form-group ant-col-12 pe-3 ps-3 ant-form-item">
+                                <label asp-for="@user.PhoneNumber" class="form-label ant-col ant-form-item-label">Số điện thoại công ty/người phụ trách</label>
+                                <input asp-for="@user.PhoneNumber" class="form-control" disabled />
+                            </div>
+                            <div class="form-group ant-col-12 pe-3 ps-3 ant-form-item">
+                                <label asp-for="@user.Email" class="form-label ant-col ant-form-item-label">Gmail công ty/người phụ trách</label>
+                                <input asp-for="@user.Email" class="form-control " disabled />                
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @await Html.PartialAsync("_Summernote", new {height = 200, selector = "#ProfileDescription"})
+}
